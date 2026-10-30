@@ -464,7 +464,7 @@ class TestCowrieExtractionStrategy(ExtractionTestCase):
         self.strategy._add_fks("1.2.3.4", "evil.com")
 
         scanner_mock.related_ioc.add.assert_called_once_with(hostname_mock)
-        hostname_mock.related_ioc.add.assert_called_once_with(scanner_mock)
+        hostname_mock.related_ioc.add.assert_not_called()
         self.assertEqual(self.mock_ioc_repo.save.call_count, 0)
 
     def test_add_fks_scanner_none(self):
@@ -654,6 +654,7 @@ class TestCowrieExtractionStrategy(ExtractionTestCase):
 
             self.assertEqual(self.mock_session_repo.get_or_create_session.call_count, 2)
             self.assertEqual(mock_process_hit.call_count, 3)
+            self.mock_ioc_repo.save.assert_not_called()
 
 
 class TestCowrieCommandSequenceAcrossRuns(CustomTestCase):

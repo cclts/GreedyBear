@@ -147,5 +147,5 @@ class BaseExtractionStrategy(metaclass=ABCMeta):
             )
             return
 
+        # related_ioc is symmetrical, so Django creates the reverse relationship.
         scanner_ip_instance.related_ioc.add(hostname_instance)
-        hostname_instance.related_ioc.add(scanner_ip_instance)
